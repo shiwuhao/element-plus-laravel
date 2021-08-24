@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ApiCollection;
 use App\Http\Resources\ApiResource;
 use App\Models\Config;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class ConfigController extends Controller
      * @param Request $request
      * @return AnonymousResourceCollection
      */
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(Request $request)
     {
         $configs = Config::ofSearch($request->all())->latest('id')->paginate();
 
