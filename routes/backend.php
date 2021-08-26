@@ -29,6 +29,6 @@ Route::middleware('api')->group(function () {
         Route::get('{config}', [ConfigController::class, 'show']);
         Route::post('', [ConfigController::class, 'store']);
         Route::put('{config}', [ConfigController::class, 'update']);
-        Route::delete('{config}', [ConfigController::class, 'delete']);
+        Route::delete('{config}', [ConfigController::class, 'destroy']);
     });
 });

@@ -199,11 +199,11 @@ class Config extends Model
     public function scopeOfSearch(Builder $builder, array $params = []): Builder
     {
         if (!empty($params['title'])) {
-            $builder->where('title', "{$params['title']}%");
+            $builder->where('title', 'like', "{$params['title']}%");
         }
 
-        if (!empty($params['title'])) {
-            $builder->where('title', "{$params['title']}%");
+        if (!empty($params['name'])) {
+            $builder->where('name', 'like', "{$params['name']}%");
         }
         return $builder;
     }

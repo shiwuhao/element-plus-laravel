@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ApiCollection;
 use App\Http\Resources\ApiResource;
 use App\Models\Config;
 use Illuminate\Http\Request;
@@ -18,6 +17,7 @@ class ConfigController extends Controller
      */
     public function index(Request $request)
     {
+        sleep(1);
         $configs = Config::ofSearch($request->all())->latest('id')->paginate();
 
         return ApiResource::collection($configs);
