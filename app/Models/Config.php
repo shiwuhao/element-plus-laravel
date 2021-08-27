@@ -146,6 +146,15 @@ class Config extends Model
     }
 
     /**
+     * @param $value
+     * @return string
+     */
+    public function getComponentAttribute($value): string
+    {
+        return ucfirst($value);
+    }
+
+    /**
      * component_label
      * @return string
      */

@@ -18,7 +18,7 @@ class ConfigController extends Controller
     public function index(Request $request)
     {
         sleep(1);
-        $configs = Config::ofSearch($request->all())->latest('id')->paginate();
+        $configs = Config::ofSearch($request->all())->latest('sort')->latest('id')->paginate();
 
         return ApiResource::collection($configs);
     }
@@ -79,7 +79,8 @@ class ConfigController extends Controller
      */
     public function group(Request $request): AnonymousResourceCollection
     {
-        $group = $request->get('group') ?? 'base';
+        sleep(1);
+        $group = $request->get('group') ?? Config::GROUP_BASIC;
 
         $configs = Config::ofGroup($group)->latest('sort')->latest('id')->get();
 
@@ -97,7 +98,7 @@ class ConfigController extends Controller
             Config::where('name', $name)->update(['value' => $value]);
         }
 
-        return ApiResource::make();
+        return ApiResource::make([]);
     }
 
     /**
