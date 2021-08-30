@@ -96,8 +96,8 @@ class Config extends Model
     const GROUP_SYSTEM = 'system';
 
     const GROUP_LABEL = [
-        self::GROUP_BASIC => '基本配置',
-        self::GROUP_SYSTEM => '系统配置',
+        self::GROUP_BASIC => '基础',
+        self::GROUP_SYSTEM => '系统',
     ];
 
     // 数据类型
@@ -121,7 +121,7 @@ class Config extends Model
     const COMPONENT_SELECT = 'select';
     const COMPONENT_TIME_PICKER = 'timePicker';
     const COMPONENT_DATE_PICKER = 'datePicker';
-    const COMPONENT_DATETIME_PICKER = 'datetimePicker';
+    const COMPONENT_DATETIME_PICKER = 'dateTimePicker';
     const COMPONENT_UPLOAD = 'upload';
     const COMPONENT_COLOR_PICKER = 'colorPicker';
 
@@ -131,7 +131,7 @@ class Config extends Model
         self::COMPONENT_SELECT => 'Select选择器',
         self::COMPONENT_TIME_PICKER => 'TimePicker时间选择器',
         self::COMPONENT_DATE_PICKER => 'DatePicker日期选择器',
-        self::COMPONENT_DATETIME_PICKER => 'DatetimePicker日期时间选择器',
+        self::COMPONENT_DATETIME_PICKER => 'DateTimePicker日期时间选择器',
         self::COMPONENT_UPLOAD => 'Upload上传',
         self::COMPONENT_COLOR_PICKER => 'ColorPicker颜色选择器',
     ];

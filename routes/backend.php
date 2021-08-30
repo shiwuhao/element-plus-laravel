@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\ConfigController;
+use App\Http\Controllers\Backend\UploadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('configs/items', [ConfigController::class, 'configItems']);
+Route::post('/uploads', [UploadController::class, 'normal']);
 
 Route::middleware('api')->group(function () {
     Route::prefix('configs')->group(function () {
