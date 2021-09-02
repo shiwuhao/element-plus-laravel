@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApiResource;
 use App\Models\Config;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -17,7 +18,6 @@ class ConfigController extends Controller
      */
     public function index(Request $request)
     {
-        sleep(1);
         $configs = Config::ofSearch($request->all())->latest('sort')->latest('id')->paginate();
 
         return ApiResource::collection($configs);
@@ -41,7 +41,6 @@ class ConfigController extends Controller
      */
     public function show(Config $config): ApiResource
     {
-        sleep(1);
         return ApiResource::make($config);
     }
 
@@ -110,6 +109,7 @@ class ConfigController extends Controller
             'groups' => $this->toDeepArray(Config::GROUP_LABEL),
             'types' => $this->toDeepArray(Config::TYPE_LABEL),
             'components' => $this->toDeepArray(Config::COMPONENT_LABEL),
+            'permissions' => Permission::all(),
         ]);
 
         return ApiResource::make($configs);

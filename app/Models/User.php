@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * App\Models\User
@@ -36,7 +39,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -44,9 +47,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'username',
+        'nickname',
+        'avatar',
+        'status',
+    ];
+
+    protected $appends = [
+        'status_label'
     ];
 
     /**
@@ -56,15 +64,41 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        'updated_at',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+
+    /** status_label
+     * @return string
+     */
+    public function getStatusLabelAttribute(): string
+    {
+        return $this->status ? '正常' : '禁用';
+    }
+
+    /**
+     * search
+     * @param Builder $builder
+     * @param $params
+     * @return Builder
+     */
+    public function scopeOfSearch(Builder $builder, $params): Builder
+    {
+        if (!empty($params['id'])) {
+            $builder->where('id', "{$params['id']}");
+        }
+
+        if (!empty($params['username'])) {
+            $builder->where('username', 'like', "{$params['username']}%");
+        }
+
+        if (!empty($params['nickname'])) {
+            $builder->where('nickname', 'like', "{$params['nickname']}%");
+        }
+        return $builder;
+    }
 }
