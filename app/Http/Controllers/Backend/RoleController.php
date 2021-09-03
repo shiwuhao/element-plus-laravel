@@ -31,6 +31,8 @@ class RoleController extends Controller
         $role = new Role($request->all());
         $role->save();
 
+        $this->syncPermissions($role, $request);
+
         return ApiResource::make($role);
     }
 
@@ -40,6 +42,7 @@ class RoleController extends Controller
      */
     public function show(Role $role): ApiResource
     {
+        $role->permissions = $role->permissions()->pluck('id');
         return ApiResource::make($role);
     }
 
@@ -52,6 +55,8 @@ class RoleController extends Controller
     {
         $role->fill($request->all());
         $role->save();
+
+        $this->syncPermissions($role, $request);
 
         return ApiResource::make($role);
     }
@@ -68,5 +73,17 @@ class RoleController extends Controller
         }
 
         return ApiResource::make($role);
+    }
+
+    /**
+     * 同步权限节点
+     * @param Role $role
+     * @param Request $request
+     */
+    protected function syncPermissions(Role $role, Request $request)
+    {
+        if (!empty($request->permissions)) {
+            $role->permissions()->sync($request->permissions);
+        }
     }
 }

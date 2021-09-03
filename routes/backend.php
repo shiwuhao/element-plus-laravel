@@ -56,6 +56,7 @@ Route::middleware('api')->group(function () {
     Route::prefix('permissions')->group(function () {
         Route::get('', [PermissionController::class, 'index']);
         Route::post('', [PermissionController::class, 'store']);
+        Route::post('auto', [PermissionController::class, 'autoGenerate']);
         Route::get('{permission}', [PermissionController::class, 'show']);
         Route::put('{permission}', [PermissionController::class, 'update']);
         Route::delete('{permission}', [PermissionController::class, 'destroy']);

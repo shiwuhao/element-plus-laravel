@@ -45,6 +45,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Config onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|Config withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Config withoutTrashed()
+ * @property-read string $group_label
+ * @property-read array|array[]|false|string[] $parse_extra
+ * @property-read array|array[]|false|string[] $parse_value
  */
 class Config extends Model
 {

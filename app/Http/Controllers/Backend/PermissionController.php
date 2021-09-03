@@ -7,6 +7,7 @@ use App\Http\Resources\ApiResource;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Artisan;
 
 class PermissionController extends Controller
 {
@@ -17,7 +18,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $permissions = Permission::ofParent()->with('children')->latest('id')->paginate();
+        $permissions = Permission::ofSearch()->latest('id')->paginate();
 
         return ApiResource::collection($permissions);
     }
@@ -62,11 +63,27 @@ class PermissionController extends Controller
      */
     public function destroy($id): ApiResource
     {
-        $permission = Permission::withTrashed()->find($id);
-        if (!$permission->trashed()) {
+        $permission = Permission::find($id);
+        if ($permission) {
             $permission->delete();
         }
 
         return ApiResource::make($permission);
+    }
+
+    /**
+     * 自动生成权限节点
+     * @return string
+     */
+    public function autoGenerate()
+    {
+        $path = 'backend';
+        $exceptPath = ['backend/uploads'];
+        Artisan::call('rbac:generate-permissions', [
+            '--path' => $path,
+            '--except-path' => join(',', $exceptPath)
+        ]);
+
+        return 'success';
     }
 }

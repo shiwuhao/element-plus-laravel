@@ -63,9 +63,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "repositories": {
-        "shiwuhao": {
+        "laravel-rbac": {
             "type": "path",
-            "url": "/home/vagrant/code/laravel-rbac"
+            "url": "../laravel-rbac"
         }
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ApiResource;
 use App\Models\Config;
 use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -109,7 +110,8 @@ class ConfigController extends Controller
             'groups' => $this->toDeepArray(Config::GROUP_LABEL),
             'types' => $this->toDeepArray(Config::TYPE_LABEL),
             'components' => $this->toDeepArray(Config::COMPONENT_LABEL),
-            'permissions' => Permission::all(),
+            'permissions' => Permission::ofParent()->with('children')->latest('id')->get(),
+            'roles' => Role::all(),
         ]);
 
         return ApiResource::make($configs);

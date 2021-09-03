@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Shiwuhao\Rbac\Traits\UserTrait;
 
 /**
  * App\Models\User
@@ -36,10 +37,31 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $username
+ * @property string $nickname
+ * @property string $avatar 头像
+ * @property int $gender 性别
+ * @property int $status 状态
+ * @property string $source 来源
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read string $status_label
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
+ * @property-read int|null $tokens_count
+ * @method static Builder|User ofSearch($params)
+ * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
+ * @method static Builder|User whereAvatar($value)
+ * @method static Builder|User whereDeletedAt($value)
+ * @method static Builder|User whereGender($value)
+ * @method static Builder|User whereNickname($value)
+ * @method static Builder|User whereSource($value)
+ * @method static Builder|User whereStatus($value)
+ * @method static Builder|User whereUsername($value)
+ * @method static \Illuminate\Database\Query\Builder|User withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes, HasApiTokens;
+    use HasFactory, Notifiable, SoftDeletes, HasApiTokens, UserTrait;
 
     /**
      * The attributes that are mass assignable.

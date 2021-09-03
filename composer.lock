@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5f06b6292e3b644bb2f6ad86a3b0fc4",
+    "content-hash": "4cb49d7ec26d4f9798b9011c2830df9b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2992,7 +2992,7 @@
             "version": "dev-master",
             "dist": {
                 "type": "path",
-                "url": "/home/vagrant/code/laravel-rbac",
+                "url": "../laravel-rbac",
                 "reference": "676513176f94f2256e213f50ed9eb062789b0d7e"
             },
             "require": {
@@ -3028,7 +3028,7 @@
             ],
             "description": "A laravel Role-Based Access Control package",
             "transport-options": {
-                "relative": false
+                "relative": true
             }
         },
         {

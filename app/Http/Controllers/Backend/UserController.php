@@ -32,6 +32,8 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
+        $this->syncRoles($user, $request);
+
         return ApiResource::make($user);
     }
 
@@ -52,7 +54,12 @@ class UserController extends Controller
     public function update(Request $request, User $user): ApiResource
     {
         $user->fill($request->all());
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        }
         $user->save();
+
+        $this->syncRoles($user, $request);
 
         return ApiResource::make($user);
     }
@@ -69,5 +76,17 @@ class UserController extends Controller
         }
 
         return ApiResource::make($user);
+    }
+
+    /**
+     * 同步角色
+     * @param User $user
+     * @param Request $request
+     */
+    protected function syncRoles(User $user, Request $request)
+    {
+        if ($request->roles) {
+            $user->roles()->sync($request->roles);
+        }
     }
 }
