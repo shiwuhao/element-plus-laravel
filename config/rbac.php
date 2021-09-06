@@ -6,6 +6,7 @@ return [
     'model' => [
         'role' => 'App\Models\Role',
         'user' => 'App\Models\User',
+        'role_user' => 'App\Models\RoleUser',
         'permission' => 'App\Models\Permission',
     ],
 

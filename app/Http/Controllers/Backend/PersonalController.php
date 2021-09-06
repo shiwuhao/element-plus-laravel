@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 
 class PersonalController extends Controller
 {
-    public function user(Request $request): ApiResource
+    public function info(Request $request): ApiResource
     {
-        return ApiResource::make($request->user());
+        $user = $request->user();
+        $user->roles = ['Administrator'];
+        return ApiResource::make($user);
     }
 
     protected function getConfigs()

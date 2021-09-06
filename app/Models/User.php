@@ -58,6 +58,8 @@ use Shiwuhao\Rbac\Traits\UserTrait;
  * @method static Builder|User whereUsername($value)
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
+ * @property-read int|null $roles_count
  */
 class User extends Authenticatable
 {
@@ -93,6 +95,10 @@ class User extends Authenticatable
         'created_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    public function isDisabled()
+    {
+        return $this->status == 0;
+    }
 
     /** status_label
      * @return string

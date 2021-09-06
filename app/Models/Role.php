@@ -36,6 +36,10 @@ use Shiwuhao\Rbac\Traits\RoleTrait;
  * @method static \Illuminate\Database\Query\Builder|Role withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Role withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[] $permissions
+ * @property-read int|null $permissions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
  */
 class Role extends Model
 {

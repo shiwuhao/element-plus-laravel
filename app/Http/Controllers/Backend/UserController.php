@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::ofSearch($request->all())->latest('id')->paginate();
+        $users = User::ofSearch($request->all())->with('roles')->latest('id')->paginate();
 
         return ApiResource::collection($users);
     }
@@ -43,6 +43,7 @@ class UserController extends Controller
      */
     public function show(User $user): ApiResource
     {
+        $user->roles;
         return ApiResource::make($user);
     }
 
@@ -87,6 +88,7 @@ class UserController extends Controller
     {
         if ($request->roles) {
             $user->roles()->sync($request->roles);
+            $user->roles;
         }
     }
 }

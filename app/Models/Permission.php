@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Shiwuhao\Rbac\Traits\PermissionTrait;
 
 /**
  * App\Models\Permission
@@ -38,7 +39,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Permission extends Model
 {
-    use HasFactory;
+    use HasFactory,PermissionTrait;
 
     /**
      * @var string[]
