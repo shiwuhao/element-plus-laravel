@@ -39,13 +39,21 @@ use Shiwuhao\Rbac\Traits\PermissionTrait;
  */
 class Permission extends Model
 {
-    use HasFactory,PermissionTrait;
+    use HasFactory, PermissionTrait;
+
+    const TYPE_MENU = 'menu';
+    const TYPE_PERMISSION = 'permission';
+
+    const TYPE_LABEL = [
+        self::TYPE_MENU => '后台菜单',
+        self::TYPE_PERMISSION => '权限节点',
+    ];
 
     /**
      * @var string[]
      */
     protected $fillable = [
-        'name', 'title', 'url', 'method',
+        'pid', 'type', 'alias', 'title', 'url', 'icon',
     ];
 
     /**
@@ -53,6 +61,10 @@ class Permission extends Model
      */
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
+    ];
+
+    protected $appends = [
+        'type_label'
     ];
 
     /**
@@ -68,6 +80,15 @@ class Permission extends Model
     public function children()
     {
         return $this->hasMany(Permission::class, 'pid', 'id');
+    }
+
+    /**
+     * type_label
+     * @return string
+     */
+    public function getTypeLabelAttribute()
+    {
+        return self::TYPE_LABEL[$this->type] ?? '';
     }
 
     /**

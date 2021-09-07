@@ -33,14 +33,15 @@ class CreateRbacTables extends Migration
         Schema::create($tableName['permissions'], function (Blueprint $table) {
             $table->id('id');
             $table->unsignedBigInteger('pid')->default(0);
-            $table->string('name')->default('')->comment('唯一标识');
-            $table->string('title')->default('')->comment('显示名称');
-            $table->string('method')->default('')->comment('请求方式');
+            $table->string('type', 50)->default('permission')->comment('类型 menu:菜单 permission:权限节点');
+            $table->string('alias', 50)->default('')->comment('别名标识');
+            $table->string('title', 50)->default('')->comment('显示名称');
+            $table->string('icon', 50)->default('')->comment('请求方式');
             $table->string('url')->default('')->comment('url');
-            $table->string('remark')->default('')->comment('备注');
             $table->timestamps();
 
-            $table->unique(['name']);
+            $table->unique('alias');
+            $table->unique(['type', 'url']);
         });
 
         Schema::create($tableName['roleUser'], function (Blueprint $table) use ($tableName, $foreignKey) {

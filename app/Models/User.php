@@ -100,6 +100,15 @@ class User extends Authenticatable
         return $this->status == 0;
     }
 
+    /**
+     * 超级管理员
+     * @return bool
+     */
+    public function isSuperAdministrator(): bool
+    {
+        return $this->id === 1;
+    }
+
     /** status_label
      * @return string
      */
