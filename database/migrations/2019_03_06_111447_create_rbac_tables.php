@@ -20,6 +20,29 @@ class CreateRbacTables extends Migration
 
         DB::beginTransaction();
 
+        // 菜单
+        Schema::create($tableName['menus'], function (Blueprint $table) {
+            $table->id('id');
+            $table->unsignedBigInteger('pid')->default(0)->comment('父级菜单');
+            $table->string('name')->comment('唯一标识');
+            $table->string('title')->default('')->comment('菜单名称');
+            $table->string('icon')->default('图标');
+            $table->string('url')->default('图标');
+            $table->string('controller')->comment('控制器')->unique();
+            $table->softDeletes();
+            $table->timestamps();
+        });
+
+        // 动作
+        Schema::create($tableName['actions'], function (Blueprint $table) {
+            $table->id('id');
+            $table->string('label')->default('')->comment('菜单名称');
+            $table->string('action')->default('')->comment('控制器')->unique();
+            $table->morphs('able');
+            $table->timestamps();
+        });
+
+        // 角色
         Schema::create($tableName['roles'], function (Blueprint $table) {
             $table->id('id');
             $table->string('name')->comment('唯一标识');
@@ -30,20 +53,15 @@ class CreateRbacTables extends Migration
             $table->timestamps();
         });
 
+        // 权限 每个菜单，每个动作都是一个权限节点
         Schema::create($tableName['permissions'], function (Blueprint $table) {
             $table->id('id');
-            $table->unsignedBigInteger('pid')->default(0);
-            $table->string('type', 50)->default('permission')->comment('类型 menu:菜单 permission:权限节点');
-            $table->string('alias', 50)->default('')->comment('别名标识');
-            $table->string('title', 50)->default('')->comment('显示名称');
-            $table->string('icon', 50)->default('')->comment('请求方式');
-            $table->string('url')->default('')->comment('url');
+            $table->string('label')->comment('权限名称');
+            $table->morphs('able');
             $table->timestamps();
-
-            $table->unique('alias');
-            $table->unique(['type', 'url']);
         });
 
+        // 角色用户
         Schema::create($tableName['roleUser'], function (Blueprint $table) use ($tableName, $foreignKey) {
             $table->unsignedBigInteger($foreignKey['user']);
             $table->unsignedBigInteger($foreignKey['role']);
@@ -51,10 +69,10 @@ class CreateRbacTables extends Migration
             $table->primary([$foreignKey['user'], $foreignKey['role']]);
         });
 
+        // 角色权限
         Schema::create($tableName['permissionRole'], function (Blueprint $table) use ($tableName, $foreignKey) {
             $table->unsignedBigInteger($foreignKey['permission']);
             $table->unsignedBigInteger($foreignKey['role']);
-
             $table->primary([$foreignKey['permission'], $foreignKey['role']]);
         });
 

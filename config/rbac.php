@@ -61,4 +61,17 @@ return [
     'needGeneratePermission' => [
 //        \App\Http\Controllers\RoleController::class => '角色管理',
     ],
+
+    // 指定路径前缀
+    'path' => [
+        'backend/users',
+        'backend/roles',
+        'backend/configs',
+        'backend/permissions',
+    ],
+
+    // 排除路径前缀
+    'except_path' => [
+//        'backend/permissions/auto',
+    ]
 ];

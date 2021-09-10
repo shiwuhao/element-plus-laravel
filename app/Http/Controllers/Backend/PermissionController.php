@@ -18,7 +18,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $permissions = Permission::ofSearch()->latest('id')->paginate();
+        $permissions = Permission::ofParent()->with('children')->latest('id')->paginate();
 
         return ApiResource::collection($permissions);
     }

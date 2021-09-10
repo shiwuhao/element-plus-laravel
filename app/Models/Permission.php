@@ -53,7 +53,7 @@ class Permission extends Model
      * @var string[]
      */
     protected $fillable = [
-        'pid', 'type', 'alias', 'title', 'url', 'icon',
+        'pid', 'type', 'alias', 'title', 'url', 'icon', 'action',
     ];
 
     /**
