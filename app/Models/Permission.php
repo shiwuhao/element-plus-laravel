@@ -42,18 +42,18 @@ class Permission extends Model
     use HasFactory, PermissionTrait;
 
     const TYPE_MENU = 'menu';
-    const TYPE_PERMISSION = 'permission';
+    const TYPE_ACTION = 'action';
 
     const TYPE_LABEL = [
-        self::TYPE_MENU => '后台菜单',
-        self::TYPE_PERMISSION => '权限节点',
+        self::TYPE_MENU => '菜单',
+        self::TYPE_ACTION => '操作',
     ];
 
     /**
      * @var string[]
      */
     protected $fillable = [
-        'pid', 'type', 'alias', 'title', 'url', 'icon', 'action',
+        'pid', 'type', 'name', 'title', 'url', 'icon', 'action',
     ];
 
     /**
