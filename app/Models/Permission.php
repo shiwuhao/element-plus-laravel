@@ -53,7 +53,7 @@ class Permission extends Model
      * @var string[]
      */
     protected $fillable = [
-        'pid', 'type', 'name', 'title', 'url', 'icon', 'action',
+        'pid', 'type', 'name', 'title', 'method', 'url', 'icon',
     ];
 
     /**
@@ -113,8 +113,12 @@ class Permission extends Model
         if (!empty($params['url']) && $params['url']) {
             $builder->where('url', 'like', "{$params['url']}%");
         }
-        if (!empty($params['method']) && $params['method']) {
-            $builder->where('method', $params['method']);
+        if (!empty($params['id']) && $params['id']) {
+            $builder->where('id', $params['id']);
+        }
+
+        if (!empty($params['pid']) && $params['pid']) {
+            $builder->where('pid', $params['pid']);
         }
 
         return $builder;

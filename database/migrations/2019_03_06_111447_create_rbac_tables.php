@@ -38,10 +38,14 @@ class CreateRbacTables extends Migration
             $table->string('type')->comment('类型 menu:菜单 action:动作')->index();
             $table->string('name')->comment('权限名称');
             $table->string('title')->comment('权限名称');
-            $table->string('icon', 50)->default('');
-            $table->string('url', 100)->default('');
-            $table->string('action', 100)->default('')->unique();
+            $table->string('icon', 50)->default('')->comment('图标');
+            $table->string('method', 50)->default('get')->comment('请求方式');
+            $table->string('url', 100)->default('')->comment('url');
+            $table->unsignedBigInteger('sort')->default(0)->comment('排序');
             $table->timestamps();
+
+            $table->unique('name');
+            $table->unique(['method', 'url']);
         });
 
         // 角色用户

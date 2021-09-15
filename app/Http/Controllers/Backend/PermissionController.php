@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApiResource;
 use App\Models\Permission;
@@ -18,7 +19,14 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $permissions = Permission::ofParent()->with('children')->latest('id')->paginate();
+        $query = Permission::ofSearch($request->all())->withCount('children')->latest('sort');
+        if ($request->get('pid')) {
+            $permissions = $query->get();
+        } elseif ($request->get('name') || $request->get('title')) {
+            $permissions = $query->paginate();
+        } else {
+            $permissions = $query->OfParent()->paginate();
+        }
 
         return ApiResource::collection($permissions);
     }
@@ -58,17 +66,19 @@ class PermissionController extends Controller
     }
 
     /**
-     * @param $id
+     * @param Permission $permission
      * @return ApiResource
+     * @throws ApiException
      */
-    public function destroy($id): ApiResource
+    public function destroy(Permission $permission): ApiResource
     {
-        $permission = Permission::find($id);
-        if ($permission) {
-            $permission->delete();
+        if ($permission->children()->count() > 0) {
+            throw new ApiException('当前节点下还有子集节点');
         }
 
-        return ApiResource::make($permission);
+        $permission->delete();
+
+        return ApiResource::make([]);
     }
 
     /**
