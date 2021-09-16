@@ -7,6 +7,7 @@ use App\Http\Resources\ApiResource;
 use App\Models\Config;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -104,13 +105,15 @@ class ConfigController extends Controller
     /**
      * @return ApiResource
      */
-    public function configItems(): ApiResource
+    public function configItems()
     {
+        $user = User::find(1);
+        return dump($user->getPermissionActions());
         $configs = Config::all()->pluck('parse_value', 'name')->merge([
             'groups' => $this->toDeepArray(Config::GROUP_LABEL),
             'types' => $this->toDeepArray(Config::TYPE_LABEL),
             'components' => $this->toDeepArray(Config::COMPONENT_LABEL),
-            'permissions' => Permission::ofParent()->with('children')->latest('id')->get(),
+            'permissions' => Permission::latest('sort')->get(),
             'roles' => Role::all(),
         ]);
 

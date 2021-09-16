@@ -42,7 +42,7 @@ class RoleController extends Controller
      */
     public function show(Role $role): ApiResource
     {
-        $role->permissions = $role->permissions()->pluck('id');
+        $role->append('permission_ids');
         return ApiResource::make($role);
     }
 

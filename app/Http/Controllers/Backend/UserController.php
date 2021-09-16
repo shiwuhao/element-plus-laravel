@@ -43,7 +43,7 @@ class UserController extends Controller
      */
     public function show(User $user): ApiResource
     {
-        $user->roles;
+        $user->append('role_ids');
         return ApiResource::make($user);
     }
 
@@ -86,8 +86,8 @@ class UserController extends Controller
      */
     protected function syncRoles(User $user, Request $request)
     {
-        if ($request->roles) {
-            $user->roles()->sync($request->roles);
+        if ($request->role_ids) {
+            $user->roles()->sync($request->role_ids);
             $user->roles;
         }
     }

@@ -82,12 +82,24 @@ class Role extends Model
     }
 
     /**
+     * permission_ids
+     * @return array
+     */
+    public function getPermissionIdsAttribute(): array
+    {
+        return $this->permissions->pluck('id')->toArray();
+    }
+
+    /**
      * @param Builder $builder
      * @param array $params
      * @return Builder
      */
     public function scopeOfSearch(Builder $builder, $params = []): Builder
     {
+        if (!empty($params['id']) && $params['id']) {
+            $builder->where('id', $params['id']);
+        }
         if (!empty($params['title']) && $params['title']) {
             $builder->where('title', 'like', "{$params['title']}%");
         }

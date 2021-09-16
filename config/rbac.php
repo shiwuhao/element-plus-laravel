@@ -14,9 +14,9 @@ return [
     'table' => [
         'users' => 'users',
         'roles' => 'roles',
-        'roleUser' => 'role_user',
+        'role_user' => 'role_user',
         'permissions' => 'permissions',
-        'permissionRole' => 'permission_role',
+        'permission_role' => 'permission_role',
     ],
 
     // 外键

@@ -118,6 +118,15 @@ class User extends Authenticatable
     }
 
     /**
+     * role_ids
+     * @return array
+     */
+    public function getRoleIdsAttribute(): array
+    {
+        return $this->roles->pluck('id')->toArray();
+    }
+
+    /**
      * search
      * @param Builder $builder
      * @param $params
