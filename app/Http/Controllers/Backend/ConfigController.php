@@ -10,6 +10,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Cache;
 
 class ConfigController extends Controller
 {
@@ -105,17 +106,17 @@ class ConfigController extends Controller
     /**
      * @return ApiResource
      */
-    public function configItems()
+    public function configItems(Request $request)
     {
-        $user = User::find(1);
-        return dump($user->getPermissionActions());
-        $configs = Config::all()->pluck('parse_value', 'name')->merge([
-            'groups' => $this->toDeepArray(Config::GROUP_LABEL),
-            'types' => $this->toDeepArray(Config::TYPE_LABEL),
-            'components' => $this->toDeepArray(Config::COMPONENT_LABEL),
-            'permissions' => Permission::latest('sort')->get(),
-            'roles' => Role::all(),
-        ]);
+        $configs = Cache::remember('configs',100, function (){
+            return Config::all()->pluck('parse_value', 'name')->merge([
+                'groups' => $this->toDeepArray(Config::GROUP_LABEL),
+                'types' => $this->toDeepArray(Config::TYPE_LABEL),
+                'components' => $this->toDeepArray(Config::COMPONENT_LABEL),
+                'permissions' => Permission::latest('sort')->get(),
+                'roles' => Role::all(),
+            ])->toArray();
+        });
 
         return ApiResource::make($configs);
     }

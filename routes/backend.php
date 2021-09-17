@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [LoginController::class, 'loginByPassword']);// 登录
 Route::post('logout', [LoginController::class, 'logout']);// 登出
 
-Route::get('configs/items', [ConfigController::class, 'configItems']);
 Route::post('/uploads', [UploadController::class, 'normal']);
 
 Route::get('test', function () {
@@ -41,6 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::prefix('configs')->group(function () {
             Route::get('', [ConfigController::class, 'index']);
             Route::post('', [ConfigController::class, 'store']);
+            Route::get('items', [ConfigController::class, 'configItems']);
             Route::get('group', [ConfigController::class, 'group']);
             Route::put('group', [ConfigController::class, 'groupUpdate']);
             Route::get('{config}', [ConfigController::class, 'show']);
