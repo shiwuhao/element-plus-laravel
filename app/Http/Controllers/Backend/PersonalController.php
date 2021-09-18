@@ -6,20 +6,40 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ApiResource;
 use Illuminate\Http\Request;
 
+/**
+ * Class PersonalController
+ * @package App\Http\Controllers\Backend
+ */
 class PersonalController extends Controller
 {
-    public function info(Request $request): ApiResource
+    /**
+     * 个人信息
+     * @param Request $request
+     * @return ApiResource
+     */
+    public function info(Request $request)
     {
         $user = $request->user();
         $user->roles = ['Administrator'];
         return ApiResource::make($user);
     }
 
-    protected function getConfigs()
+    /**
+     * 菜单、权限节点
+     * @param Request $request
+     * @return ApiResource
+     */
+    public function permissions(Request $request)
     {
-        return [
+        $user = $request->user();
+        $menus = $user->getPermissionMenus();
+        $actions = $user->getPermissionActions();
 
-        ];
+        return ApiResource::make([
+            'menus' => $menus,
+            'actions' => $actions
+        ]);
     }
+
 
 }

@@ -28,13 +28,16 @@ Route::post('/uploads', [UploadController::class, 'normal']);
 
 Route::get('test', function () {
     $user = \App\Models\User::find(1);
-    dump($user->hasPermission('get,backend/test')) ;
+    dump($user->hasPermission('get,backend/test'));
     return 11;
 });
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::get('user', [PersonalController::class, 'info']);
+    Route::prefix('personal')->group(function () {
+        Route::get('info', [PersonalController::class, 'info']);
+        Route::get('permissions', [PersonalController::class, 'permissions']);
+    });
 
     Route::middleware('permission')->group(function () {
         Route::prefix('configs')->group(function () {
