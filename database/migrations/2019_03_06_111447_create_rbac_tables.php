@@ -49,7 +49,7 @@ class CreateRbacTables extends Migration
         });
 
         // 角色用户
-        Schema::create($tableName['roleUser'], function (Blueprint $table) use ($tableName, $foreignKey) {
+        Schema::create($tableName['role_user'], function (Blueprint $table) use ($tableName, $foreignKey) {
             $table->unsignedBigInteger($foreignKey['user']);
             $table->unsignedBigInteger($foreignKey['role']);
 
@@ -57,7 +57,7 @@ class CreateRbacTables extends Migration
         });
 
         // 角色权限
-        Schema::create($tableName['permissionRole'], function (Blueprint $table) use ($tableName, $foreignKey) {
+        Schema::create($tableName['permission_role'], function (Blueprint $table) use ($tableName, $foreignKey) {
             $table->unsignedBigInteger($foreignKey['permission']);
             $table->unsignedBigInteger($foreignKey['role']);
             $table->primary([$foreignKey['permission'], $foreignKey['role']]);
@@ -75,9 +75,9 @@ class CreateRbacTables extends Migration
     {
         $tableName = config('rbac.table');
 
-        Schema::drop($tableName['permissionRole']);
+        Schema::drop($tableName['permission_role']);
         Schema::drop($tableName['permissions']);
-        Schema::drop($tableName['roleUser']);
+        Schema::drop($tableName['role_user']);
         Schema::drop($tableName['roles']);
     }
 }
