@@ -32,6 +32,10 @@ Route::get('test', function () {
     return 11;
 });
 
+Route::prefix('configs')->group(function () {
+    Route::get('items', [ConfigController::class, 'configItems']);
+});
+
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('personal')->group(function () {
@@ -43,7 +47,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::prefix('configs')->group(function () {
             Route::get('', [ConfigController::class, 'index']);
             Route::post('', [ConfigController::class, 'store']);
-            Route::get('items', [ConfigController::class, 'configItems']);
+//            Route::get('items', [ConfigController::class, 'configItems']);
             Route::get('group', [ConfigController::class, 'group']);
             Route::put('group', [ConfigController::class, 'groupUpdate']);
             Route::get('{config}', [ConfigController::class, 'show']);

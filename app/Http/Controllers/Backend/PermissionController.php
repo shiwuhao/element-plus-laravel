@@ -25,7 +25,7 @@ class PermissionController extends Controller
         } elseif ($request->get('name') || $request->get('title')) {
             $permissions = $query->paginate();
         } else {
-            $permissions = $query->OfParent()->paginate();
+            $permissions = $query->OfParent()->get();
         }
 
         return ApiResource::collection($permissions);

@@ -32,12 +32,14 @@ class PersonalController extends Controller
     public function permissions(Request $request)
     {
         $user = $request->user();
-        $menus = $user->getPermissionMenus();
-        $actions = $user->getPermissionActions();
+        $menus = $user->getPermissionMenus(['id', 'pid', 'title', 'icon', 'url', 'type']);
+        $actions = $user->getPermissionActions()->pluck('name')->toArray();
+        $roles = $user->roles->pluck('name')->toArray();
 
         return ApiResource::make([
             'menus' => $menus,
-            'actions' => $actions
+            'roles' => $roles,
+            'actions' => $actions,
         ]);
     }
 

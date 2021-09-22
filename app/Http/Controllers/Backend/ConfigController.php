@@ -81,7 +81,6 @@ class ConfigController extends Controller
      */
     public function group(Request $request): AnonymousResourceCollection
     {
-        sleep(1);
         $group = $request->get('group') ?? Config::GROUP_BASIC;
 
         $configs = Config::ofGroup($group)->latest('sort')->latest('id')->get();
@@ -106,9 +105,9 @@ class ConfigController extends Controller
     /**
      * @return ApiResource
      */
-    public function configItems(Request $request)
+    public function configItems()
     {
-        $configs = Cache::remember('configs',100, function (){
+        $configs = Cache::remember('configs', 100, function () {
             return Config::all()->pluck('parse_value', 'name')->merge([
                 'groups' => $this->toDeepArray(Config::GROUP_LABEL),
                 'types' => $this->toDeepArray(Config::TYPE_LABEL),
