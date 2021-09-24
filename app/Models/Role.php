@@ -45,6 +45,9 @@ class Role extends Model
 {
     use HasFactory, SoftDeletes, RoleTrait;
 
+    // 超级管理员标识
+    const ADMINISTRATOR = 'administrator';
+
     /**
      * @var string[]
      */
