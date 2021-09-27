@@ -22,7 +22,7 @@ class PermissionSeeder extends Seeder
             ['id' => 5, 'pid' => 0, 'type' => 'menu', 'title' => '系统管理', 'name' => 'SystemMange', 'icon' => 'el-icon-menu', 'method' => 'get', 'url' => '/system'],
             ['id' => 6, 'pid' => 5, 'type' => 'menu', 'title' => '用户管理', 'name' => 'UserManage', 'icon' => 'el-icon-user-solid', 'method' => 'get', 'url' => '/system/users'],
             ['id' => 7, 'pid' => 5, 'type' => 'menu', 'title' => '角色管理', 'name' => 'RoleManage', 'icon' => 'fa fa-sitemap', 'method' => 'get', 'url' => '/system/roles'],
-            ['id' => 8, 'pid' => 5, 'type' => 'menu', 'title' => '权限管理', 'name' => 'PermissionManage', 'icon' => 'fa fa-linode', 'method' => 'get', 'url' => '/system/permissions'],
+            ['id' => 8, 'pid' => 5, 'type' => 'menu', 'title' => '权限管理', 'name' => 'PermissionManage', 'icon' => 'fa fa-linode', 'method' => 'get', 'url' => '/system/menus'],
             ['id' => 9, 'pid' => 5, 'type' => 'menu', 'title' => '配置管理', 'name' => 'ConfigManage', 'icon' => 'el-icon-setting', 'method' => 'get', 'url' => '/system/configs'],
         ];
 
