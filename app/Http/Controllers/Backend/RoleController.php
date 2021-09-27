@@ -82,8 +82,8 @@ class RoleController extends Controller
      */
     protected function syncPermissions(Role $role, Request $request)
     {
-        if (!empty($request->permissions)) {
-            $role->permissions()->sync($request->permissions);
+        if (!empty($request->permission_ids)) {
+            $role->permissions()->sync($request->permission_ids);
         }
     }
 }
