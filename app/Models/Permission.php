@@ -123,4 +123,9 @@ class Permission extends Model
 
         return $builder;
     }
+
+    public function toJson($options = 256)
+    {
+        return parent::toJson($options);
+    }
 }

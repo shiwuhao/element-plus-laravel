@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Backend;
 
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ApiCollection;
 use App\Http\Resources\ApiResource;
 use App\Models\Permission;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Artisan;
 
 class PermissionController extends Controller
@@ -15,7 +15,7 @@ class PermissionController extends Controller
 
     /**
      * @param Request $request
-     * @return AnonymousResourceCollection
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request)
     {

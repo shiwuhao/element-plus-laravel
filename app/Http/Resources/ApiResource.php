@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Database\Eloquent\JsonEncodingException;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ApiResource extends JsonResource
@@ -21,5 +22,18 @@ class ApiResource extends JsonResource
         return is_array($this->resource)
             ? $this->resource
             : $this->resource->toArray();
+    }
+
+    /**
+     * Convert the model instance to JSON.
+     *
+     * @param  int  $options
+     * @return string
+     *
+     * @throws \Illuminate\Database\Eloquent\JsonEncodingException
+     */
+    public function toJson($options = 256)
+    {
+        return parent::toJson($options);
     }
 }
