@@ -2,76 +2,57 @@
 
 return [
 
-    // 模型命名空间
+    // 模型
     'model' => [
-        'role' => 'App\Models\Role',
         'user' => 'App\Models\User',
-        'role_user' => 'App\Models\RoleUser',
-        'permission' => 'App\Models\Permission',
+        'role' => 'App\Models\Role',
+        'action' => 'App\Models\Action',
+        'permission' => 'App\Models\permission',
     ],
 
     // 表名称
     'table' => [
         'users' => 'users',
         'roles' => 'roles',
-        'role_user' => 'role_user',
+        'actions' => 'actions',
         'permissions' => 'permissions',
-        'permission_role' => 'permission_role',
+        'role_user' => 'role_user',
+        'role_permission' => 'role_permission',
     ],
 
     // 外键
-    'foreignKey' => [
+    'foreign_key' => [
         'role' => 'role_id',
         'user' => 'user_id',
         'permission' => 'permission_id',
     ],
 
-    // 模型授权
-    'permissionModel' => [
-//        \App\Category::class => 'categories',
-    ],
-
-    // 定界符
-    'delimiter' => '|',
-
-    // 控制器action label 替换
-    'resourceAbilityMapLabel' => [
+    // action labels 替换
+    'action_label_replace' => [
         'index' => '列表',
         'show' => '详情',
-        'create' => '新增',
         'store' => '新增',
-        'edit' => '更新',
         'update' => '更新',
         'destroy' => '删除',
-        'restore' => '恢复',
     ],
 
-    // 控制器action name 替换
-    'resourceAbilityMap' => [
-        'index' => 'list',
-        'show' => 'view',
-        'create' => 'create',
-        'store' => 'create',
-        'edit' => 'update',
-        'update' => 'update',
-        'destroy' => 'delete',
-    ],
-
-    // 需要生成权限节点的控制器
-    'needGeneratePermission' => [
-//        \App\Http\Controllers\RoleController::class => '角色管理',
+    // controller labels 替换
+    'controller_label_replace' => [
+        \App\Http\Controllers\Backend\UserController::class => '用户',
+        \App\Http\Controllers\Backend\RoleController::class => '角色',
+        \App\Http\Controllers\Backend\PermissionController::class => '权限',
     ],
 
     // 指定路径前缀
     'path' => [
         'backend/users',
         'backend/roles',
-        'backend/configs',
         'backend/permissions',
     ],
 
-    // 排除路径前缀
+    // 排除路径
     'except_path' => [
-//        'backend/permissions/auto',
+        'backend/login',
+        'backend/logout',
     ]
 ];

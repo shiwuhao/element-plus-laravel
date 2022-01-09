@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -20,13 +21,14 @@ class UserSeeder extends Seeder
         $adminRole = Role::find(1);
         $testRole = Role::find(2);
 
-        $testRole->permissions()->sync([1, 2, 3, 4]);
+        $permissionIds = Permission::all()->pluck('id')->toArray();
+        $testRole->permissions()->sync($permissionIds);
 
         $user = User::find(1);
         $user->username = 'shiwuhao';
         $user->password = bcrypt('111111');
         $user->save();
-        $user->roles()->sync([$adminRole->id]);
+        $user->roles()->sync([$adminRole->id, $testRole->id]);
 
         $user = User::find(2);
         $user->username = 'Test';

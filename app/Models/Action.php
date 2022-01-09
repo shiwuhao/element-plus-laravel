@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Shiwuhao\Rbac\Models\Traits\PermissibleTrait;
-
 /**
  * App\Models\Action
  *
@@ -29,7 +26,10 @@ use Shiwuhao\Rbac\Models\Traits\PermissibleTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Action whereUri($value)
  * @mixin \Eloquent
  */
-class Menu extends Model
+class Action extends \Shiwuhao\Rbac\Models\Action
 {
-    use PermissibleTrait;
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+    ];
 }

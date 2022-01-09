@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Shiwuhao\Rbac\Traits\UserTrait;
+use Shiwuhao\Rbac\Models\Traits\UserTrait;
 
 /**
  * App\Models\User
@@ -59,7 +59,12 @@ use Shiwuhao\Rbac\Traits\UserTrait;
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $permissions
  * @property-read int|null $roles_count
+ * @property-read array $role_ids
+ * @property-read int|null $permissions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Shiwuhao\Rbac\Models\Role[] $roleWithPermissions
+ * @property-read int|null $role_with_permissions_count
  */
 class User extends Authenticatable
 {

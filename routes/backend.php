@@ -5,9 +5,11 @@ use App\Http\Controllers\Backend\LoginController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\PersonalController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\TestController;
 use App\Http\Controllers\Backend\UploadController;
 use App\Http\Controllers\Backend\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,10 +30,8 @@ Route::post('logout', [LoginController::class, 'logout']);// 登出
 
 Route::post('/uploads', [UploadController::class, 'normal']);
 
-Route::get('test', function () {
-    $user = \App\Models\User::find(1);
-    dump($user->hasPermission('get,backend/test'));
-    return 11;
+\Route::middleware(['auth:sanctum','permission'])->group(function () {
+    Route::get('test', [TestController::class,'index']);
 });
 
 Route::prefix('configs')->group(function () {

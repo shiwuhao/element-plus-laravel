@@ -105,15 +105,13 @@ class ConfigController extends Controller
     /**
      * @return ApiResource
      */
-    public function configItems()
+    public function configItems(): ApiResource
     {
         $configs = Cache::remember('configs', 100, function () {
             return Config::all()->pluck('parse_value', 'name')->merge([
                 'groups' => $this->toDeepArray(Config::GROUP_LABEL),
                 'types' => $this->toDeepArray(Config::TYPE_LABEL),
                 'components' => $this->toDeepArray(Config::COMPONENT_LABEL),
-                'permissions' => Permission::latest('sort')->get(),
-                'roles' => Role::all(),
             ])->toArray();
         });
 

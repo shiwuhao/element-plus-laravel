@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Permission;
 use Illuminate\Database\Seeder;
 
-class PermissionSeeder extends Seeder
+class MenuSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -27,8 +27,8 @@ class PermissionSeeder extends Seeder
         ];
 
         foreach ($data as $item) {
-            $permission = new Permission($item);
-            $permission->save();
+//            $permission = new Permission($item);
+//            $permission->save();
         }
 
 
