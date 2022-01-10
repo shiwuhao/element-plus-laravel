@@ -10,8 +10,21 @@ use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
+/**
+ *
+ */
 class PermissionController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function all(Request $request)
+    {
+        $permissions = Permission::with('permissible')->ofSearch($request->all())->get();
+
+        return ApiResource::collection($permissions);
+    }
 
     /**
      * @param Request $request

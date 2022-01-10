@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Shiwuhao\Rbac\Models\Permission as RbacPermission;
+
 /**
  * App\Models\Permission
  *
@@ -25,7 +28,7 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Permission extends \Shiwuhao\Rbac\Models\Permission
+class Permission extends RbacPermission
 {
     /**
      * @var string[]
@@ -41,4 +44,26 @@ class Permission extends \Shiwuhao\Rbac\Models\Permission
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    /**
+     * search
+     * @param Builder $builder
+     * @param $params
+     * @return Builder
+     */
+    public function scopeOfSearch(Builder $builder, $params): Builder
+    {
+        if (!empty($params['id'])) {
+            $builder->where('id', "{$params['id']}");
+        }
+
+        if (!empty($params['name'])) {
+            $builder->where('name', 'like', "{$params['name']}%");
+        }
+
+        if (!empty($params['label'])) {
+            $builder->where('label', 'like', "{$params['label']}%");
+        }
+        return $builder;
+    }
 }

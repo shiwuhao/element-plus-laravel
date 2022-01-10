@@ -74,6 +74,7 @@ Route::middleware('auth:sanctum')->group(function () {
         });
 
         Route::prefix('permissions')->group(function () {
+            Route::get('all', [PermissionController::class, 'all']);
             Route::get('', [PermissionController::class, 'index']);
             Route::post('', [PermissionController::class, 'store']);
             Route::post('auto', [PermissionController::class, 'autoGenerate']);

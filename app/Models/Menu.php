@@ -28,6 +28,16 @@ use Shiwuhao\Rbac\Models\Traits\PermissibleTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Action whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Action whereUri($value)
  * @mixin \Eloquent
+ * @property int $pid 父级ID
+ * @property string $type 菜单类型
+ * @property string $url 页面地址
+ * @property string $icon 图标
+ * @property string|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Menu whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Menu whereIcon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Menu wherePid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Menu whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Menu whereUrl($value)
  */
 class Menu extends Model
 {
