@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Action;
+use App\Models\Menu;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
@@ -30,8 +32,10 @@ class AppServiceProvider extends ServiceProvider
 //        JsonResource::withoutWrapping();
 
         Relation::morphMap([
-            'action' => Action::class,
-            'role' => Role::class,
+            'actions' => Action::class,
+            'menus' => Menu::class,
+            'roles' => Role::class,
+            'users' => User::class,
         ]);
     }
 }

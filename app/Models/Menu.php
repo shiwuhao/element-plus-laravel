@@ -32,4 +32,39 @@ use Shiwuhao\Rbac\Models\Traits\PermissibleTrait;
 class Menu extends Model
 {
     use PermissibleTrait;
+
+    /**
+     * @var string[]
+     */
+    protected $fillable = [
+        'pid', 'name', 'label', 'url', 'type', 'icon'
+    ];
+
+    /**
+     * @var string[]
+     */
+    protected $hidden = [
+        'deleted_at'
+    ];
+
+    /**
+     * @var string[]
+     */
+    protected $appends = [
+        'alias'
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+    ];
+
+    /**
+     * alias
+     * @return string
+     */
+    public function getAliasAttribute(): string
+    {
+        return $this->name;
+    }
 }

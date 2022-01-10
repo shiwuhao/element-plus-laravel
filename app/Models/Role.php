@@ -29,6 +29,11 @@ namespace App\Models;
 class Role extends \Shiwuhao\Rbac\Models\Role
 {
     /**
+     * 管理员角色标识
+     */
+    const ADMINISTRATOR = 'Administrator';
+
+    /**
      * @var string[]
      */
     protected $hidden = [

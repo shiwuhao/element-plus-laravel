@@ -109,9 +109,9 @@ class User extends Authenticatable
      * 超级管理员
      * @return bool
      */
-    public function isSuperAdministrator(): bool
+    public function isAdministrator(): bool
     {
-        return $this->id === 1;
+        return $this->hasRole(Role::ADMINISTRATOR);
     }
 
     /** status_label

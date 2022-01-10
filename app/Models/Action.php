@@ -28,6 +28,10 @@ namespace App\Models;
  */
 class Action extends \Shiwuhao\Rbac\Models\Action
 {
+
+    /**
+     * @var string[]
+     */
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',

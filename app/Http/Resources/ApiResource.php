@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Database\Eloquent\JsonEncodingException;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ApiResource extends JsonResource
@@ -32,7 +31,7 @@ class ApiResource extends JsonResource
      *
      * @throws \Illuminate\Database\Eloquent\JsonEncodingException
      */
-    public function toJson($options = 256)
+    public function toJson($options = 256): string
     {
         return parent::toJson($options);
     }
