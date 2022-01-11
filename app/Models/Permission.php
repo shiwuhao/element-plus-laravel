@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Shiwuhao\Rbac\Models\Permission as RbacPermission;
 
 /**
@@ -27,6 +28,7 @@ use Shiwuhao\Rbac\Models\Permission as RbacPermission;
  * @method static \Illuminate\Database\Eloquent\Builder|Permission wherePid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static Builder|Permission ofSearch($params)
  */
 class Permission extends RbacPermission
 {
@@ -44,6 +46,23 @@ class Permission extends RbacPermission
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    /**
+     * @return HasMany
+     */
+    public function children(): HasMany
+    {
+        return $this->hasMany(Permission::class, 'pid', 'id');
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeOfParent(Builder $builder): Builder
+    {
+        return $builder->where('pid', 0);
+    }
 
     /**
      * search

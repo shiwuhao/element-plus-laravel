@@ -32,7 +32,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Permission::ofSearch($request->all())->withCount('children')->latest('sort');
+        $query = Permission::ofSearch($request->all())->withCount('children');
         if ($request->get('pid')) {
             $permissions = $query->get();
         } elseif ($request->get('name') || $request->get('title')) {

@@ -37,6 +37,7 @@ use Shiwuhao\Rbac\Models\Role as RbacRole;
  * @method static \Illuminate\Database\Query\Builder|Role withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Role withoutTrashed()
  * @mixin \Eloquent
+ * @property-read array $permission_ids
  */
 class Role extends RbacRole
 {
