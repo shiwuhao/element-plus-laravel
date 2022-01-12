@@ -37,6 +37,15 @@ use Shiwuhao\Rbac\Models\Traits\PermissibleTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Menu whereUrl($value)
  * @mixin \Eloquent
  * @method static Builder|Menu ofSearch($params)
+ * @property int $sort 排序
+ * @property-read \Illuminate\Database\Eloquent\Collection|Menu[] $children
+ * @property-read int|null $children_count
+ * @property-read string $type_label
+ * @method static Builder|Menu ofParent()
+ * @method static \Illuminate\Database\Query\Builder|Menu onlyTrashed()
+ * @method static Builder|Menu whereSort($value)
+ * @method static \Illuminate\Database\Query\Builder|Menu withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Menu withoutTrashed()
  */
 class Menu extends Model
 {
@@ -94,6 +103,15 @@ class Menu extends Model
     ];
 
     /**
+     * children
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Menu::class, 'pid', 'id');
+    }
+
+    /**
      * alias
      * @return string
      */
@@ -109,6 +127,15 @@ class Menu extends Model
     public function getTypeLabelAttribute(): string
     {
         return self::TYPE_LABEL[$this->type] ?? '';
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeOfParent(Builder $builder): Builder
+    {
+        return $builder->where('pid', 0);
     }
 
     /**

@@ -29,6 +29,9 @@ use Shiwuhao\Rbac\Models\Permission as RbacPermission;
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereUpdatedAt($value)
  * @mixin \Eloquent
  * @method static Builder|Permission ofSearch($params)
+ * @property-read \Illuminate\Database\Eloquent\Collection|Permission[] $children
+ * @property-read int|null $children_count
+ * @method static Builder|Permission ofParent()
  */
 class Permission extends RbacPermission
 {

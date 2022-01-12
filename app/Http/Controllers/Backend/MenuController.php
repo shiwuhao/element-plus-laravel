@@ -10,6 +10,12 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class MenuController extends Controller
 {
+    public function all(Request $request)
+    {
+        $menus = Menu::ofSearch($request->all())->get();
+
+        return ApiResource::collection($menus);
+    }
 
     /**
      * @param Request $request
@@ -17,7 +23,7 @@ class MenuController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        $menus = Menu::ofSearch($request->all())->oldest('id')->paginate();
+        $menus = Menu::ofSearch($request->all())->ofParent()->with('children')->oldest('id')->paginate();
 
         return ApiResource::collection($menus);
     }
