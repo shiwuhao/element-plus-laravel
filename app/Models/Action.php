@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+
 /**
  * App\Models\Action
  *
@@ -32,8 +34,39 @@ class Action extends \Shiwuhao\Rbac\Models\Action
     /**
      * @var string[]
      */
+    protected $fillable = [
+        'name', 'label', 'method', 'uri'
+    ];
+
+    /**
+     * @var string[]
+     */
+    protected $hidden = [
+        'updated_at'
+    ];
+
+    /**
+     * @var string[]
+     */
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    /**
+     * @param Builder $builder
+     * @param $params
+     * @return Builder
+     */
+    public function scopeOfSearch(Builder $builder, $params): Builder
+    {
+        if (!empty($params['name'])) {
+            $builder->where('name', 'like', "{$params['name']}%");
+        }
+
+        if (!empty($params['label'])) {
+            $builder->where('label', 'like', "{$params['label']}%");
+        }
+        return $builder;
+    }
 }

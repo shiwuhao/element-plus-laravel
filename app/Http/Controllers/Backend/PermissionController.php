@@ -8,6 +8,7 @@ use App\Http\Resources\ApiCollection;
 use App\Http\Resources\ApiResource;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Artisan;
 
 /**
@@ -17,7 +18,7 @@ class PermissionController extends Controller
 {
     /**
      * @param Request $request
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return AnonymousResourceCollection
      */
     public function all(Request $request)
     {
@@ -28,11 +29,11 @@ class PermissionController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index(Request $request): AnonymousResourceCollection
     {
-        $query = Permission::ofSearch($request->all())->withCount('children');
+        $query = Permission::ofSearch($request->all())->with('permissible')->withCount('children');
         if ($request->get('pid')) {
             $permissions = $query->get();
         } elseif ($request->get('name') || $request->get('title')) {

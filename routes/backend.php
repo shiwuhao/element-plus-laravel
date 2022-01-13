@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\ActionController;
 use App\Http\Controllers\Backend\ConfigController;
 use App\Http\Controllers\Backend\LoginController;
 use App\Http\Controllers\Backend\MenuController;
@@ -60,6 +61,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::apiResource('users', UserController::class);
         Route::apiResource('roles', RoleController::class);
+
+        Route::get('actions/all', [ActionController::class, 'all']);
+        Route::apiResource('actions', ActionController::class);
 
         Route::get('menus/all', [MenuController::class, 'all']);
         Route::apiResource('menus', MenuController::class);
