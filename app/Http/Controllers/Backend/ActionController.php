@@ -7,6 +7,7 @@ use App\Http\Resources\ApiResource;
 use App\Models\Action;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Artisan;
 
 class ActionController extends Controller
 {
@@ -74,5 +75,22 @@ class ActionController extends Controller
         }
 
         return ApiResource::make($action);
+    }
+
+
+    /**
+     * 自动生成权限节点
+     * @return string
+     */
+    public function autoGenerate()
+    {
+        $path = 'backend';
+        $exceptPath = ['backend/uploads'];
+        Artisan::call('rbac:generate-permissions', [
+            '--path' => $path,
+            '--except-path' => join(',', $exceptPath)
+        ]);
+
+        return 'success';
     }
 }

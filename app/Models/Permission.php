@@ -45,6 +45,13 @@ class Permission extends RbacPermission
     /**
      * @var string[]
      */
+    protected $appends = [
+        'permissible_type_label'
+    ];
+
+    /**
+     * @var string[]
+     */
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -59,33 +66,33 @@ class Permission extends RbacPermission
     }
 
     /**
-     * @param Builder $builder
-     * @return Builder
+     * permissible_type_label
+     * @return string
      */
-    public function scopeOfParent(Builder $builder): Builder
+    public function getPermissibleTypeLabelAttribute(): string
     {
-        return $builder->where('pid', 0);
+        switch ($this->permissible_type) {
+            case 'actions':
+                return '动作';
+            case 'menus':
+                return '菜单';
+            default:
+                return '';
+        }
     }
 
     /**
-     * search
      * @param Builder $builder
-     * @param $params
+     * @param array $params
      * @return Builder
      */
-    public function scopeOfSearch(Builder $builder, $params): Builder
+    public function scopeOfSearch(Builder $builder, array $params = []): Builder
     {
-        if (!empty($params['id'])) {
-            $builder->where('id', "{$params['id']}");
+        if (!empty($params['type']) && $params['type'] != 'all') {
+            $builder->where('permissible_type', $params['type']);
         }
 
-        if (!empty($params['name'])) {
-            $builder->where('name', 'like', "{$params['name']}%");
-        }
-
-        if (!empty($params['label'])) {
-            $builder->where('label', 'like', "{$params['label']}%");
-        }
         return $builder;
     }
+
 }
