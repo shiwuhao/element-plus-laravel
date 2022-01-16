@@ -68,6 +68,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('menus/all', [MenuController::class, 'all']);
         Route::apiResource('menus', MenuController::class);
 
+        Route::post('permissions/init-sort', [PermissionController::class, 'initSort']);
         Route::get('permissions/all', [PermissionController::class, 'all']);
         Route::post('/permissions/auto', [PermissionController::class, 'autoGenerate']);
         Route::apiResource('permissions', PermissionController::class);

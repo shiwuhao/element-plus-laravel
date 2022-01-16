@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static \Illuminate\Database\Eloquent\Builder|Action whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Action whereUri($value)
  * @mixin \Eloquent
+ * @method static Builder|Action ofSearch($params)
  */
 class Action extends \Shiwuhao\Rbac\Models\Action
 {

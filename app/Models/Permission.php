@@ -13,6 +13,7 @@ use Shiwuhao\Rbac\Models\Permission as RbacPermission;
  * @property int $pid 父级ID
  * @property string $permissible_type
  * @property int $permissible_id
+ * @property int sort
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $permissible
@@ -32,6 +33,7 @@ use Shiwuhao\Rbac\Models\Permission as RbacPermission;
  * @property-read \Illuminate\Database\Eloquent\Collection|Permission[] $children
  * @property-read int|null $children_count
  * @method static Builder|Permission ofParent()
+ * @property-read string $permissible_type_label
  */
 class Permission extends RbacPermission
 {
