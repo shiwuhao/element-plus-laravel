@@ -15,7 +15,7 @@ class RoleController extends Controller
      * @param Request $request
      * @return AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index(Request $request): AnonymousResourceCollection
     {
         $roles = Role::ofSearch($request->all())->oldest('id')->paginate();
 
@@ -31,7 +31,7 @@ class RoleController extends Controller
         $role = new Role($request->all());
         $role->save();
 
-        $role->permissions()->sync($request->permission_ids);
+        $role->permissions()->sync($request->get('permission_ids'));
 
         return ApiResource::make($role);
     }

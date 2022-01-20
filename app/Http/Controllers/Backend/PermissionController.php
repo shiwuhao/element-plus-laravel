@@ -26,7 +26,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        $permissions = Permission::ofSearch($request->all())->with('permissible')->oldest('sort')->oldest('id')->get();
+        $permissions = Permission::ofSearch($request->all())->with('permissible')->oldest('sort')->oldest('id')->paginate();
 
         return ApiResource::collection($permissions);
     }

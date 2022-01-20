@@ -41,18 +41,23 @@ return [
         \App\Http\Controllers\Backend\UserController::class => '用户',
         \App\Http\Controllers\Backend\RoleController::class => '角色',
         \App\Http\Controllers\Backend\PermissionController::class => '权限',
+        \App\Http\Controllers\Backend\MenuController::class => '菜单',
+        \App\Http\Controllers\Backend\ActionController::class => '动作',
+        \App\Http\Controllers\Backend\ConfigController::class => '配置',
     ],
 
     // 指定路径前缀
     'path' => [
-        'backend/users',
-        'backend/roles',
-        'backend/permissions',
+        '/backend/users',
+        '/backend/configs',
+        '/backend/roles',
+        '/backend/actions',
+        '/backend/menus',
+        '/backend/permissions',
     ],
 
     // 排除路径
     'except_path' => [
-        'backend/login',
-        'backend/logout',
+        '/backend/configs/items',
     ]
 ];

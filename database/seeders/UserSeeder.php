@@ -25,13 +25,15 @@ class UserSeeder extends Seeder
         $testRole->permissions()->sync($permissionIds);
 
         $user = User::find(1);
-        $user->username = 'shiwuhao';
+        $user->username = 'admin';
+        $user->nickname = 'admin';
         $user->password = bcrypt('111111');
         $user->save();
         $user->roles()->sync([$adminRole->id, $testRole->id]);
 
         $user = User::find(2);
         $user->username = 'Test';
+        $user->nickname = 'Test';
         $user->password = bcrypt('111111');
         $user->save();
         $user->roles()->sync([$testRole->id]);
