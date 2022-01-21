@@ -94,6 +94,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'updated_at',
+        'deleted_at',
     ];
 
     protected $casts = [
