@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApiResource;
+use App\Models\Action;
+use App\Models\Menu;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -35,14 +37,33 @@ class PersonalController extends Controller
     {
         $user = $request->user();
 
-        $key = 'userPermissions:' . $user->id;
-        $response = Cache::remember($key, 10, function () use ($user) {
-            $permissions = $user->isAdministrator() ? Permission::all() : $user->permissions();
-            return $permissions->groupBy('permissible_type')->map(function ($item) {
-                return $item->pluck('permissible');
-            })->put('roles', $user->roles);
+        $permissions = Cache::remember("userPermissions:{$user->id}", 10, function () use ($user) {
+            if ($user->isAdministrator()) return Action::all()->pluck('name');
+            return $user->permissions()->filter(function ($item) {
+                return $item->permissible_type == (new Action())->getMorphClass();
+            })->pluck('permissible')->pluck('name');
         });
 
-        return ApiResource::make($response);
+        return ApiResource::make($permissions);
+    }
+
+    /**
+     * 菜单
+     * @param Request $request
+     * @return ApiResource
+     */
+    public function menus(Request $request): ApiResource
+    {
+        $user = $request->user();
+
+        $menus = Cache::remember("'userMenus:{$user->id}", 10, function () use ($user) {
+            if ($user->isAdministrator()) return Menu::all();
+
+            return $user->permissions()->filter(function ($item) {
+                return $item->permissible_type == (new Menu())->getMorphClass();
+            });
+        });
+
+        return ApiResource::make($menus);
     }
 }

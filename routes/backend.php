@@ -35,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('personal')->group(function () {
         Route::get('info', [PersonalController::class, 'info']);
         Route::get('permissions', [PersonalController::class, 'permissions']);
+        Route::get('menus', [PersonalController::class, 'menus']);
     });
 
     // rbac鉴权
