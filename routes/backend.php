@@ -15,8 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [LoginController::class, 'loginByPassword']);// 登录
 Route::post('logout', [LoginController::class, 'logout']);// 登出
-Route::post('/uploads', [UploadController::class, 'normal']);// 上传
 
+// 文件上传
+Route::prefix('uploads')->group(function () {
+    Route::post('single', [UploadController::class, 'single']);
+    Route::post('multiple', [UploadController::class, 'multiple']);
+});
 
 Route::prefix('configs')->group(function () {
     Route::get('items', [ConfigController::class, 'configItems']);

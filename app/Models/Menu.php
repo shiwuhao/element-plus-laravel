@@ -91,7 +91,7 @@ class Menu extends Model
      * @var string[]
      */
     protected $appends = [
-        'type_label', 'alias',
+        'type_label', 'alias', 'meta',
     ];
 
     /**
@@ -127,6 +127,19 @@ class Menu extends Model
     public function getTypeLabelAttribute(): string
     {
         return self::TYPE_LABEL[$this->type] ?? '';
+    }
+
+    /**
+     * meta
+     * @return \string[][]
+     */
+    public function getMetaAttribute(): array
+    {
+        return ['meta' => [
+            'title' => $this->label,
+            'icon' => $this->icon,
+            'sort' => $this->sort,
+        ]];
     }
 
     /**
