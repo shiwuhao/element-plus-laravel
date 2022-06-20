@@ -53,6 +53,17 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'oss' => [
+            'driver'        => 'oss',
+            'access_id'     => env('OSS_ACCESS_ID', ''),
+            'access_key'    => env('OSS_ACCESS_KEY', ''),
+            'bucket'        => env('OSS_BUCKET', ''),
+            'endpoint'      => env('OSS_ENDPOINT', ''),
+            'cdnDomain'     => env('OSS_CDN_DOMAIN', ''),
+            'ssl'           => true,
+            'isCName'       => true,
+            'debug'         => env('APP_DEBUG', true),
+        ],
     ],
 
     /*

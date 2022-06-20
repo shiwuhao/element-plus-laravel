@@ -20,6 +20,7 @@ Route::post('logout', [LoginController::class, 'logout']);// 登出
 Route::prefix('uploads')->group(function () {
     Route::post('single', [UploadController::class, 'single']);
     Route::post('multiple', [UploadController::class, 'multiple']);
+    Route::post('oss', [UploadController::class, 'ossGetSign']);
 });
 
 Route::prefix('configs')->group(function () {

@@ -62,7 +62,7 @@ class UploadController extends BackendController
     /**
      * @return mixed
      */
-    public function sign()
+    public function ossGetSign()
     {
         $dir = 'uploads/' . date('Y-m-d');
         $callbackUrl = url('api/oss/callback', [], true);
