@@ -7,6 +7,7 @@ use App\Exceptions\ApiException;
 use App\Http\Resources\ApiResource;
 use App\Http\Resources\FileResource;
 use App\Models\File;
+use App\Models\User;
 use App\Services\OssService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
