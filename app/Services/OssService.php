@@ -51,7 +51,7 @@ class OssService
         $callbackString = json_encode($callbackParam);
 
         $base64CallbackBody = base64_encode($callbackString);
-        $endCarbon = Carbon::now()->addSeconds(30);
+        $endCarbon = Carbon::now()->addSeconds(300);
         $expiration = $endCarbon->toIso8601ZuluString();// 设置该policy超时时间是30s
 
         //最大文件大小.用户可以自己设置
