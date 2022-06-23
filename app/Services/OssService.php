@@ -34,6 +34,7 @@ class OssService
         $this->accessId = $config['access_id'];
         $this->accessKey = $config['access_key'];
         $this->host = 'https://' . $config['cdnDomain'];
+        $this->host = 'https://run-hub.oss-cn-beijing.aliyuncs.com';
     }
 
     /**

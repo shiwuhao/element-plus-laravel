@@ -66,7 +66,7 @@ class UploadController extends BackendController
     public function ossGetSign()
     {
         $dir = 'uploads/' . date('Y-m-d');
-        $callbackUrl = url('api/oss/callback', [], true);
+        $callbackUrl = 'https://api.runhub.cn/v1/oss/callback';
         $signs = app(OssService::class)->getSign($dir, $callbackUrl);
 
         return ApiResource::make($signs);
